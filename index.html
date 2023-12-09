@@ -103,7 +103,7 @@
         const loader = new GLTFLoader();
         loader.load("mens.glb", (gltf) => {
           model = gltf.scene;
-          model.scale.set(0.1, 0.1, 0.1); // Ajustez l'échelle si nécessaire
+          model.scale.set(0.05, 0.05, 0.05);
           model.visible = false;
           scene.add(model);
         });
