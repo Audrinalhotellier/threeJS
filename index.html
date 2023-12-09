@@ -107,10 +107,16 @@
           originalModel.visible = false;
           scene.add(originalModel);
 
+          controller = renderer.xr.getController(0);
           controller.addEventListener("select", () => {
             if (reticle.visible) {
               const newModel = originalModel.clone();
               newModel.visible = true;
+
+              // Ajustez la taille ici (0.1 est un exemple, essayez différentes valeurs)
+              const scaleValue = 0.1;
+              newModel.scale.set(scaleValue, scaleValue, scaleValue);
+
               reticle.matrix.decompose(
                 newModel.position,
                 newModel.quaternion,
@@ -120,13 +126,11 @@
               modelInstances.push(newModel);
             }
           });
+
+          scene.add(controller);
         });
 
         //
-
-        controller = renderer.xr.getController(0);
-        controller.addEventListener("select", onSelect);
-        scene.add(controller);
 
         reticle = new THREE.Mesh(
           new THREE.RingGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
