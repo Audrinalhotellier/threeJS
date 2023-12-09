@@ -98,26 +98,31 @@
           ARButton.createButton(renderer, { requiredFeatures: ["hit-test"] })
         );
 
-        let model;
+        let modelInstances = []; // tableau pour stocker les instances du modèle
 
         const loader = new GLTFLoader();
         loader.load("mens.glb", (gltf) => {
-          model = gltf.scene;
-          model.scale.set(0.0005, 0.0005, 0.0005);
-          model.visible = false;
-          scene.add(model);
+          const originalModel = gltf.scene;
+          originalModel.scale.set(0.0005, 0.0005, 0.0005);
+          originalModel.visible = false;
+          scene.add(originalModel);
+
+          controller.addEventListener("select", () => {
+            if (reticle.visible) {
+              const newModel = originalModel.clone();
+              newModel.visible = true;
+              reticle.matrix.decompose(
+                newModel.position,
+                newModel.quaternion,
+                newModel.scale
+              );
+              scene.add(newModel);
+              modelInstances.push(newModel);
+            }
+          });
         });
 
-        function onSelect() {
-          if (reticle.visible && model) {
-            model.visible = true;
-            reticle.matrix.decompose(
-              model.position,
-              model.quaternion,
-              model.scale
-            );
-          }
-        }
+        //
 
         controller = renderer.xr.getController(0);
         controller.addEventListener("select", onSelect);
@@ -131,7 +136,13 @@
         reticle.visible = false;
         scene.add(reticle);
 
+        //
+
         window.addEventListener("resize", onWindowResize);
+      }
+
+      function onSelect() {
+        // Fonction onSelect modifiée si nécessaire
       }
 
       function onWindowResize() {
