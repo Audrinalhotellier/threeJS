@@ -50,12 +50,12 @@
       }
     </script>
 
-    <script type="module" src="path/to/GLTFLoader.js"></script>
+    <script type="module" src="GLTFLoader.js"></script>
 
     <script type="module">
       import * as THREE from "three";
       import { ARButton } from "three/addons/webxr/ARButton.js";
-      import { GLTFLoader } from "path/to/GLTFLoader.js"; // Update the path
+      import { GLTFLoader } from "GLTFLoader.js"; // Update the path
 
       let container;
       let camera, scene, renderer;
@@ -131,7 +131,7 @@
       function onSelect() {
         if (reticle.visible) {
           const loader = new GLTFLoader();
-          loader.load("voiture.glb", (gltf) => {
+          loader.load("mens.glb", (gltf) => {
             const mesh = gltf.scene;
             reticle.matrix.decompose(
               mesh.position,
