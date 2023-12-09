@@ -1,0 +1,11 @@
+Model Information:
+* title:	MENS
+* source:	https://sketchfab.com/3d-models/mens-a400147bb3cb4bd0b36b8ed245d0b5b5
+* author:	kwong.x (https://sketchfab.com/kwong.x)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "MENS" (https://sketchfab.com/3d-models/mens-a400147bb3cb4bd0b36b8ed245d0b5b5) by kwong.x (https://sketchfab.com/kwong.x) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
