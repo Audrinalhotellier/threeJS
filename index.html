@@ -10,29 +10,31 @@
     <link type="text/css" rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-        >&times;</a
+    <body>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+          >&times;</a
+        >
+        <a href="#">item_1</a>
+        <a href="#">item_2</a>
+        <a href="#">item_3</a>
+        <a href="#">item_4</a>
+      </div>
+
+      <span style="font-size: 30px; cursor: pointer" onclick="openNav()"
+        >&#9776; open</span
       >
-      <a href="#">item_1</a>
-      <a href="#">item_2</a>
-      <a href="#">item_3</a>
-      <a href="#">item_4</a>
-    </div>
 
-    <span style="font-size: 30px; cursor: pointer" onclick="openNav()"
-      >&#9776; open</span
-    >
+      <script>
+        function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
 
-    <script>
-      function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-      }
-
-      function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-      }
-    </script>
+        function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+        }
+      </script>
+    </body>
 
     <!-- Import maps polyfill -->
     <!-- Remove this when import maps will be widely supported -->
@@ -50,12 +52,9 @@
       }
     </script>
 
-    <script type="module" src="GLTFLoader.js"></script>
-
     <script type="module">
       import * as THREE from "three";
       import { ARButton } from "three/addons/webxr/ARButton.js";
-      import { GLTFLoader } from "GLTFLoader.js"; // Mettez à jour le chemin
 
       let container;
       let camera, scene, renderer;
@@ -102,6 +101,25 @@
 
         //
 
+        //const geometry = new THREE.CylinderGeometry( 0.1, 0.1, 0.2, 32 ) //.translate( 0, 0.1, 0 );
+        const geometry = new THREE.SphereGeometry(0.1, 0.1, 0.2);
+
+        function onSelect() {
+          if (reticle.visible) {
+            const material = new THREE.MeshPhongMaterial({
+              color: 0xffffff * Math.random(),
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            reticle.matrix.decompose(
+              mesh.position,
+              mesh.quaternion,
+              mesh.scale
+            );
+            //mesh.scale.y = Math.random() * 2 + 1;
+            scene.add(mesh);
+          }
+        }
+
         controller = renderer.xr.getController(0);
         controller.addEventListener("select", onSelect);
         scene.add(controller);
@@ -124,23 +142,6 @@
         camera.updateProjectionMatrix();
 
         renderer.setSize(window.innerWidth, window.innerHeight);
-      }
-
-      //
-
-      function onSelect() {
-        if (reticle.visible) {
-          const loader = new GLTFLoader();
-          loader.load("mens.glb", (gltf) => {
-            const mesh = gltf.scene;
-            reticle.matrix.decompose(
-              mesh.position,
-              mesh.quaternion,
-              mesh.scale
-            );
-            scene.add(mesh);
-          });
-        }
       }
 
       //
