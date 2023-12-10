@@ -100,7 +100,7 @@
         let modelInstances = []; // tableau pour stocker les instances du modèle
 
         const loader = new GLTFLoader();
-        loader.load("canard.glb", (gltf) => {
+        loader.load("canard2.glb", (gltf) => {
           const originalModel = gltf.scene;
           originalModel.scale.set(0.05, 0.05, 0.05);
           originalModel.visible = false;
